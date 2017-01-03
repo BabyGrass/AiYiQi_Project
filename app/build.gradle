@@ -17,6 +17,25 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+            res.srcDirs =
+                    [
+                            '/src/main/res/layout/liu',
+                            '/src/main/res/layout/guo',
+                            '/src/main/res/layout/ran',
+                            '/src/main/res/layout/ren',
+                            '/src/main/res/layout/zhou',
+                            '/src/main/res/layouts',
+                            '/src/main/res'
+                    ]
+        }
+    }
+
+
+
 }
 
 dependencies {

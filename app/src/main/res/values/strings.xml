@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">AiYiQi_Project</string>
+
+    <!--首页中部的文字-->
+    <string name="decoration_company">装修公司</string>
+    <string name="city_activity">同城活动</string>
+    <string name="decoration_school">装修学堂</string>
+    <string name="decoration_budget">装修预算</string>
+    <string name="building_materials_furniture">建材家具</string>
+    <string name="design_sketch">效果图</string>
+    <string name="self_service_order">自助下单</string>
+    <string name="design_volume">设计/量房</string>
+
+    <!--首页底部的文字-->
+    <string name="first_page">首页</string>
+    <string name="owner_say">业主说</string>
+    <string name="message">消息</string>
+    <string name="mine">我的</string>
+
+
 </resources>
