@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">AiYiQi_Project</string>
 
+
+    <!--首页顶部搜索栏-->
+    <string name="search_hint">搜索用户/帖子</string>
+
+
     <!--首页中部的文字-->
     <string name="decoration_company">装修公司</string>
     <string name="city_activity">同城活动</string>

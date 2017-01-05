@@ -2,21 +2,6 @@ package com.aiyiqi.aiyiqi_project.framework.utils.utils;
 
 
 public class FirstUrlUtils {
-    /* 基础接口*/
-    public static final String BASE_URL = "http://appapi.17house.com/";
-
-    /* 首页轮播*/
-
-    public static final String First_bo = "AppManagerApi.php";
-
-    /*文章（首页最下面列表数据，有帖子和新闻）*/
-    public static final String BASE_URL2 = "http://bbs.17house.com/";
-    /*第一页*/
-    public static final String FIRST_PAGE = "motnt/index.php";
-
-    /*加载更多*/
-    public static final String DOWNLOAD_MORE = "motnt/index.php";
-
 
 /*首页装修公司、同城活动等8个模块胡接口*/
 
@@ -26,9 +11,9 @@ public class FirstUrlUtils {
      */
 
 /*基础接口*/
-    public static final String BASE_URL3 = "http://appapi.17house.com/";
+    public static final String BASE_URL = "http://appapi.17house.com/";
     /*装修公司轮播广告*/
-    public static final String CAROUSEL_ADVERTISING = "AppManagerApi.php";
+    public static final String CAROUSEL_ADVERTISING =BASE_URL+ "AppManagerApi.php";
     /*装修直播*/
     public static final String DECORATION_LIVE = "http://hui.17house.com/svc/payment-facade/housekeep/listLatestLiveBuildingSites";
 

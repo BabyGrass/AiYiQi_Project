@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="50dp">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:orientation="horizontal">
+    <TextView
+        android:id="@+id/souye_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/main_tab_home_normal"
+        android:drawablePadding="5dp"
+        android:text="@string/first_page"
+        android:textSize="@dimen/size_12"
+        android:gravity="center"
+        android:layout_weight="1"/>
+    <TextView
+        android:id="@+id/yezhusay_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/main_tab_community_normal"
+        android:drawablePadding="5dp"
+        android:gravity="center"
+        android:text="@string/owner_say"
+        android:textSize="@dimen/size_12"
+        android:layout_weight="1"/>
+    <TextView
+        android:id="@+id/msg_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/main_tab_msg_normal"
+        android:drawablePadding="5dp"
+        android:gravity="center"
+        android:text="@string/message"
+        android:textSize="@dimen/size_12"
+        android:layout_weight="1"/>
+    <TextView
+        android:id="@+id/mine_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/main_tab_my_normal"
+        android:drawablePadding="5dp"
+        android:gravity="center"
+        android:text="@string/mine"
+        android:textSize="@dimen/size_12"
+        android:layout_weight="1"/>
+
+</LinearLayout>
+</RelativeLayout>

@@ -61,7 +61,7 @@ public class DetailUrl {
 
 
     /*文章评论列表（文章没有赞列表）*/
-    public static final String ARTICLE_PINLUN_LIST = "http://appapi.17house.com/newsApi.php?version=1&page=1&dataId=257866&action=commentList&limit=10&model=android";
+    public static final String ARTICLE_PINLUN_LIST = "http://appapi.17house.com/newsApi.php";
 
 
 /*

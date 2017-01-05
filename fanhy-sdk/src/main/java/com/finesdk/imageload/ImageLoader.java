@@ -52,10 +52,10 @@ public class ImageLoader {
         heigth = mSimpleDraweeView.getHeight();
 
         if (width <= 0) {
-            width = DisplayUtil.dip2px(BaseApplication.newInstance().getAppContext(), 40);
+            width = DisplayUtil.dip2px(BaseApplication.newInstance().getAppContext(), 200);
         }
         if (heigth <= 0) {
-            heigth = DisplayUtil.dip2px(BaseApplication.newInstance().getAppContext(), 40);
+            heigth = DisplayUtil.dip2px(BaseApplication.newInstance().getAppContext(), 150);
         }
 
         ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(url))
