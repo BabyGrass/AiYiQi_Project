@@ -17,7 +17,8 @@ import com.finesdk.util.common.StringUtil;
  * Description: Fresco 显示图片封装
  */
 public class ImageLoader {
-
+    private int width;
+    private int heigth;
     private static volatile ImageLoader imageLoader;
 
     private ImageLoader() {
@@ -61,12 +62,16 @@ public class ImageLoader {
         ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(url))
                 .setProgressiveRenderingEnabled(true)
                 .setLocalThumbnailPreviewsEnabled(true)
-                .setResizeOptions(new ResizeOptions(width, heigth))
+                .setResizeOptions(new ResizeOptions(width,heigth))
                 .build();
         DraweeController controller = Fresco.newDraweeControllerBuilder()
                 .setImageRequest(request)
                 .setOldController(mSimpleDraweeView.getController())
                 .build();
         mSimpleDraweeView.setController(controller);
+    }
+    public void setSize(int width,int height){
+        this.width = width;
+        this.heigth = height;
     }
 }

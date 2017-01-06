@@ -13,6 +13,7 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 public class BaseApplication extends Application{
     private Context mContext;
     private volatile static BaseApplication mBaseApp;
+
     public static BaseApplication newInstance(){
         return mBaseApp;
     }

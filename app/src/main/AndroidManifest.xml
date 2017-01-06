@@ -25,6 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".zhuangxiugongsi.ZhuangXiuActivity">
+
+        </activity>
         <activity android:name=".decorate_budget.BudgetActivity"/>
         <activity android:name=".design_amountofroom.DesignActivity"/>
     </application>

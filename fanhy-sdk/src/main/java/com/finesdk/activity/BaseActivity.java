@@ -9,6 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.finesdk.tools.AppManager;
 
 /**
@@ -20,7 +21,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Fresco.initialize(this);
         setContentView(getContentViewId());
 
         //如果存在actionBar，就隐藏
@@ -28,7 +29,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             getSupportActionBar().hide();
         AppManager.getInstance().addActivity(this);
 
-        setTranslucentStatus();
+//        setTranslucentStatus();
 
         beforeInitView();
         initView();

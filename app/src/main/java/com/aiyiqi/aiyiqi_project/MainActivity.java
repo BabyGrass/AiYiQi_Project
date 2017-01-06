@@ -12,6 +12,7 @@ import com.aiyiqi.aiyiqi_project.decorate_budget.BudgetActivity;
 import com.aiyiqi.aiyiqi_project.design_amountofroom.DesignActivity;
 import com.aiyiqi.aiyiqi_project.framework.utils.utils.MainUrlUtils;
 import com.aiyiqi.aiyiqi_project.view.SearchActivity;
+import com.aiyiqi.aiyiqi_project.zhuangxiugongsi.ZhuangXiuActivity;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.finesdk.activity.BaseActivity;
 import com.finesdk.http.OkHttpUtil;
@@ -157,6 +158,8 @@ public class MainActivity extends BaseActivity {
             case R.id.city_search://城市
                 break;
             case R.id.decoration_company://装修公司
+                Intent intent = new Intent(this, ZhuangXiuActivity.class);
+                startActivity(intent);
                 break;
             case R.id.city_actiivty://同城活动
                 break;
