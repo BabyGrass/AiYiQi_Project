@@ -8,12 +8,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aiyiqi.aiyiqi_project.assets.ViewPagerImageUrl;
+import com.aiyiqi.aiyiqi_project.decorate_budget.BudgetActivity;
+import com.aiyiqi.aiyiqi_project.design_amountofroom.DesignActivity;
 import com.aiyiqi.aiyiqi_project.framework.utils.utils.MainUrlUtils;
 import com.aiyiqi.aiyiqi_project.view.SearchActivity;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.finesdk.activity.BaseActivity;
 import com.finesdk.http.OkHttpUtil;
 import com.finesdk.util.ConvenientBannerUtil;
+import com.finesdk.util.common.IntentUtil;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -160,6 +163,7 @@ public class MainActivity extends BaseActivity {
             case R.id.decoration_school://装修学堂
                 break;
             case R.id.decroation_budget://装修预算
+                IntentUtil.openActivity(this, BudgetActivity.class);
                 break;
             case R.id.catogray_feature://建材家具
                 break;
@@ -168,6 +172,7 @@ public class MainActivity extends BaseActivity {
             case R.id.own_order://自助下单
                 break;
             case R.id.design_and_measure://设计/测量
+                IntentUtil.openActivity(this, DesignActivity.class);
                 break;
             case R.id.souye_tv://首页
                 break;

@@ -13,7 +13,6 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 public class BaseApplication extends Application{
     private Context mContext;
     private volatile static BaseApplication mBaseApp;
-
     public static BaseApplication newInstance(){
         return mBaseApp;
     }
@@ -25,7 +24,7 @@ public class BaseApplication extends Application{
     public void onCreate() {
         super.onCreate();
         mContext = getApplicationContext();
-        Fresco.initialize(this);
         mBaseApp = this;
+        Fresco.initialize(mContext);
     }
 }
