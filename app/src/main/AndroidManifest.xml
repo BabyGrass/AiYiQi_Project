@@ -2,6 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.aiyiqi.aiyiqi_project">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
@@ -27,6 +36,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.SearchActivity"/>
+        <activity android:name=".view.zxing.activity.CaptureActivity"/>
+        <activity android:name=".LoginActivity"/>
+        <activity android:name=".view.JiFenActivity"/>
+        <activity android:name=".view.SheZhiActivity"/>
+        <activity android:name=".view.detailactivity.ViewPagerDetailActivity"/>
+        <activity android:name=".view.detailactivity.ArticleDetailActivity"/>
+        <activity android:name=".view.detailactivity.AuthodActivity"/>
+        <activity android:name=".view.detailactivity.TieZiDetailActivity"/>
     </application>
 
 </manifest>

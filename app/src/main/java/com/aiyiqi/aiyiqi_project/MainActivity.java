@@ -1,82 +1,40 @@
 package com.aiyiqi.aiyiqi_project;
 
-import android.content.Intent;
-import android.os.Bundle;
+import android.graphics.Color;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.aiyiqi.aiyiqi_project.assets.ViewPagerImageUrl;
-import com.aiyiqi.aiyiqi_project.framework.utils.utils.MainUrlUtils;
-import com.aiyiqi.aiyiqi_project.view.SearchActivity;
-import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.aiyiqi.aiyiqi_project.view.fragment.HomeFragment;
+import com.aiyiqi.aiyiqi_project.view.fragment.MessageFragment;
+import com.aiyiqi.aiyiqi_project.view.fragment.MineFragment;
+import com.aiyiqi.aiyiqi_project.view.fragment.YeZhuTalkFragment;
 import com.finesdk.activity.BaseActivity;
-import com.finesdk.http.OkHttpUtil;
-import com.finesdk.util.ConvenientBannerUtil;
-import com.google.gson.Gson;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+import com.finesdk.util.common.ToastUtil;
 
 public class MainActivity extends BaseActivity {
-    @Bind(R.id.zxing_image)
-    ImageView zxingImage;
-    @Bind(R.id.serch_edit)
-    EditText serchEdit;
-    @Bind(R.id.city_search)
-    TextView citySearch;
-    @Bind(R.id.decoration_company)
-    TextView decorationCompany;
-    @Bind(R.id.city_actiivty)
-    TextView cityActiivty;
-    @Bind(R.id.decoration_school)
-    TextView decorationSchool;
-    @Bind(R.id.decroation_budget)
-    TextView decroationBudget;
-    @Bind(R.id.catogray_feature)
-    TextView catograyFeature;
-    @Bind(R.id.xiaguo_iamge)
-    TextView xiaguoIamge;
-    @Bind(R.id.own_order)
-    TextView ownOrder;
-    @Bind(R.id.design_and_measure)
-    TextView designAndMeasure;
-    @Bind(R.id.souye_tv)
-    TextView souyeTv;
-    @Bind(R.id.yezhusay_tv)
-    TextView yezhusayTv;
-    @Bind(R.id.msg_tv)
-    TextView msgTv;
-    @Bind(R.id.mine_tv)
-    TextView mineTv;
-    private ConvenientBanner convenientBanner;
-
-    //解析数据的类
-    private ViewPagerImageUrl viewPagerImageUrl;
-    //轮播帮助类
-    private ConvenientBannerUtil convenientBannerUtil;
-    //点的数组
-    private int[] indicators = new int[]{R.mipmap.md_switch_thumb_disable, R.mipmap.md_switch_thumb_off_normal};
-    private List<String> imgUrl;
-
-    /**
-     * 获取轮播图片地址的方法
-     *
-     * @return
-     */
-    public List<String> setUrl() {
-        imgUrl = new ArrayList<>();
-        for (int i = 0; i < viewPagerImageUrl.getData().size(); i++) {
-            imgUrl.add(viewPagerImageUrl.getData().get(i).getImagesrc());
-        }
-        return imgUrl;
-    }
-
+    private LinearLayout souye_ll,yezhu_ll,msg_ll,mine_ll;
+    private TextView tv1,tv2,tv3,tv4;
+    private TextView [] textViews = null;
+    private ImageView iv1,iv2,iv3,iv4;
+    private ImageView [] imageViews = null;
+    //改变的图片
+    private int image_change[] = {R.drawable.main_tab_home_selected, R.drawable.main_tab_community_selected
+            , R.drawable.main_tab_msg_selected, R.drawable.main_tab_my_selected};
+    //不改变的图片
+    private int image_Nochange[] = {R.drawable.main_tab_home_normal, R.drawable.main_tab_community_normal
+            , R.drawable.main_tab_msg_normal, R.drawable.main_tab_my_normal};
+    //Fragment
+    private HomeFragment homeFragment;
+    private YeZhuTalkFragment yeZhuTalkFragment;
+    private MessageFragment messageFragment;
+    private MineFragment mineFragment;
     @Override
     public int getContentViewId() {
         return R.layout.activity_main;
@@ -89,99 +47,142 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        convenientBanner = findViewByIdNoCast(R.id.first_viewpager_con);
+        souye_ll = findViewByIdNoCast(R.id.souye_ll);
+        yezhu_ll = findViewByIdNoCast(R.id.yezhu_ll);
+        msg_ll = findViewByIdNoCast(R.id.msg_ll);
+        mine_ll = findViewByIdNoCast(R.id.mine_ll);
+        setOnClick(souye_ll,yezhu_ll,msg_ll,mine_ll);
+
+        tv1 = findViewByIdNoCast(R.id.souye_tv);
+        tv2 = findViewByIdNoCast(R.id.yezhu_tv);
+        tv3 = findViewByIdNoCast(R.id.msg_tv);
+        tv4 = findViewByIdNoCast(R.id.mine_tv);
+        textViews = new TextView[]{tv1,tv2,tv3,tv4};
+
+        iv1 = findViewByIdNoCast(R.id.souye_iv);
+        iv2 = findViewByIdNoCast(R.id.yezhu_ll_iv);
+        iv3 = findViewByIdNoCast(R.id.msg_iv);
+        iv4 = findViewByIdNoCast(R.id.mine_iv);
+        imageViews = new ImageView[]{iv1,iv2,iv3,iv4};
+
+        //设置默认显示的
+        setDefaultFragment();
     }
+
+    /**
+     * 设置默认显示的Fragment
+     */
+    private void setDefaultFragment() {
+       FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
+        homeFragment = new HomeFragment();
+       transaction.replace(R.id.rl, homeFragment);
+       transaction.commit();
+        textViews[0].setTextColor(Color.GREEN);
+        imageViews[0].setImageResource(image_change[0]);
+        }
+
+
 
     @Override
     public void initData() {
-        downloadImage();
-
 
     }
-
-
-    /**
-     * 网络下载轮播图片
-     */
-    public void downloadImage() {
-        OkHttpUtil.post(MainUrlUtils.First_Page, new OkHttpUtil.ResultCallback() {
-            @Override
-            public void onSuccess(Object response) {
-                if (response != null) {
-                    String str = OkHttpUtil.decodeUnicode(response.toString());
-                    viewPagerImageUrl = new Gson().fromJson(str, ViewPagerImageUrl.class);
-                    convenientBannerUtil = new ConvenientBannerUtil(MainActivity.this, convenientBanner, setUrl(), indicators);
-                }
-
-            }
-
-            @Override
-            public void onFailure(Exception e) {
-
-            }
-        }, postParam());
-    }
-
-    /**
-     * Post请求参数集合
-     */
-    public List<OkHttpUtil.Param> postParam() {
-        String key1 = "action";
-        String value1 = "getownerinfo";
-        String key2 = "cityId";
-        String value2 = "2";
-        List<OkHttpUtil.Param> params = new ArrayList<>();
-        OkHttpUtil.Param param = new OkHttpUtil.Param(key1, value1);
-        OkHttpUtil.Param param2 = new OkHttpUtil.Param(key2, value2);
-        params.add(param);
-        params.add(param2);
-        return params;
-    }
-
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    public void onClick(View v) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
+        switch(v.getId()){
+            case R.id.souye_ll:
+                if(homeFragment == null){
+                    homeFragment = new HomeFragment();
+                }
+                transaction.replace(R.id.rl,homeFragment);
+                setClickChange(0);
+                break;
+            case R.id.yezhu_ll:
+                if(yeZhuTalkFragment == null){
+                    yeZhuTalkFragment = new YeZhuTalkFragment();
+                }
+                transaction.replace(R.id.rl,yeZhuTalkFragment);
+                setClickChange(1);
+                break;
+            case R.id.msg_ll:
+                if(messageFragment == null){
+                    messageFragment = new MessageFragment();
+                }
+                transaction.replace(R.id.rl,messageFragment);
+                setClickChange(2);
+                break;
+            case R.id.mine_ll:
+                if(mineFragment == null){
+                    mineFragment = new MineFragment();
+                }
+                transaction.replace(R.id.rl,mineFragment);
+                setClickChange(3);
+                break;
+        }
+        transaction.commit();
     }
 
-    @OnClick({R.id.zxing_image, R.id.city_search, R.id.decoration_company, R.id.city_actiivty, R.id.decoration_school, R.id.decroation_budget, R.id.catogray_feature, R.id.xiaguo_iamge, R.id.own_order, R.id.design_and_measure, R.id.souye_tv, R.id.yezhusay_tv, R.id.msg_tv, R.id.mine_tv})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.zxing_image://二维码
-                break;
-            case R.id.city_search://城市
-                break;
-            case R.id.decoration_company://装修公司
-                break;
-            case R.id.city_actiivty://同城活动
-                break;
-            case R.id.decoration_school://装修学堂
-                break;
-            case R.id.decroation_budget://装修预算
-                break;
-            case R.id.catogray_feature://建材家具
-                break;
-            case R.id.xiaguo_iamge://效果图
-                break;
-            case R.id.own_order://自助下单
-                break;
-            case R.id.design_and_measure://设计/测量
-                break;
-            case R.id.souye_tv://首页
-                break;
-            case R.id.yezhusay_tv://业主说
-                break;
-            case R.id.msg_tv://消息
-                break;
-            case R.id.mine_tv://我的
-                break;
+    /**
+     * 设置颜色和改变图片的方法
+     */
+    public void setClickChange(int position){
+        for(int i =0;i<textViews.length;i++){
+            if(i == position){
+                textViews[i].setTextColor(Color.GREEN);
+                imageViews[i].setImageResource(image_change[i]);
+            }
+            else{
+                textViews[i].setTextColor(Color.BLACK);
+                imageViews[i].setImageResource(image_Nochange[i]);
+            }
         }
     }
 
-    @OnClick(R.id.serch_edit)//搜索页面
-    public void onClick() {
-        startActivity(new Intent(this, SearchActivity.class));
+
+    /**
+     * 监听Back键
+     */
+    private static final int TIEMS = 2000;
+
+    private boolean isBack = true;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            if(isBack){//绗竴娆¤繘鏉?
+               ToastUtil.showToast("确认再次点击退出！");
+                        isBack = false;
+                mHandler.sendEmptyMessageDelayed(10001,TIEMS);
+            }else{
+                finish();
+            }
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
     }
+
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch(msg.what){
+                case 10001:
+                    isBack = true;
+                    break;
+            }
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mHandler.removeCallbacksAndMessages(null);
+    }
+
+
+
+
 }

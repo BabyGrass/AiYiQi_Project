@@ -1,14 +1,12 @@
 package com.aiyiqi.aiyiqi_project.view;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.aiyiqi.aiyiqi_project.MainActivity;
 import com.aiyiqi.aiyiqi_project.R;
 import com.finesdk.activity.BaseActivity;
 
@@ -59,9 +57,7 @@ public class SearchActivity extends BaseActivity {
             case R.id.search_edit_f://搜索
                 break;
             case R.id.serch_deit_cancel://取消
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-                finish();
+                SearchActivity.this.finish();
                 break;
         }
     }

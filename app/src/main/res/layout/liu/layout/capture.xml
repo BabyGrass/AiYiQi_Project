@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <RelativeLayout
+        android:id="@+id/zxing_title"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/black"
+        android:gravity="center_horizontal">
+        <TextView
+            android:id="@+id/zxing_cancle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="关闭"
+            android:gravity="center"
+            android:layout_alignParentLeft="true"
+            android:textColor="@color/main_bottom_green"
+            android:padding="10dp"
+            android:textSize="@dimen/size_14"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="扫一扫"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_16"/>
+        <TextView
+            android:id="@+id/zxing_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="相册"
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+            android:padding="10dp"
+            android:textColor="@color/main_bottom_green"
+            android:textSize="@dimen/size_14"/>
+
+    </RelativeLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/zxing_title"
+        >
+
+        <SurfaceView
+            android:id="@+id/preview_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+        <com.aiyiqi.aiyiqi_project.view.zxing.view.ViewfinderView
+            android:id="@+id/viewfinder_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </FrameLayout>
+
+</RelativeLayout>

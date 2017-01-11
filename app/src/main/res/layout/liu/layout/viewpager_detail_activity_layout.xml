@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <include layout="@layout/viewpager_detail_title_layout"
+        android:id="@+id/detail_title_in"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"/>
+    <WebView
+        android:id="@+id/viewpager_webview"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/detail_title_in"
+        android:layout_above="@+id/detail_bottom"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:id="@+id/detail_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <ImageView
+                android:id="@+id/detail_bottom_left_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/viewpager_detail_bottom_selector"/>
+            <ImageView
+                android:id="@+id/detail_bottom_right_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="80dp"
+                android:src="@drawable/viewpager_detail_bottom2_selector"/>
+            <ImageView
+                android:id="@+id/detail_bottom_refresh_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/viewpager_detail_refresh_selector"
+                android:layout_marginRight="20dp"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+</RelativeLayout>

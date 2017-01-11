@@ -12,7 +12,7 @@ public class MainUrlUtils {
     public static final String First_Page = BASE_URL+"AppManagerApi.php";
     /**
      * 请求参数：
-     action：getownerinfo
+     action：getownerinfo`
      cityId：2（此处固定值，因目前只有成都有内容）
      */
 
@@ -20,7 +20,7 @@ public class MainUrlUtils {
     /*文章（首页最下面列表数据，有帖子和新闻）*/
     public static final String BASE_URL2 = "http://bbs.17house.com/";
     /*第一页*/
-    public static final String FIRST_PAGE = BASE_URL2+"motnt/index.php";
+    public static final String FIRST_PAGE = BASE_URL2+"motnt/index.php?a=appindex&c=index&id=1218226&uuid=86305803367590&pageSize=10&uid=1633055&m=misc&type=3&page=1&haspermission=yes&model=android&sessionToken=6U49kCYKE260RqvPqEdFsBGskNQStKhm&app_version=android_com.aiyiqi.galaxy_1.1";
 
     /*加载更多*/
     public static final String DOWNLOAD_MORE = BASE_URL2+"motnt/index.php";

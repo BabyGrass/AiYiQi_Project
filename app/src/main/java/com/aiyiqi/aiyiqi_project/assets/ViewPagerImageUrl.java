@@ -1,9 +1,12 @@
 package com.aiyiqi.aiyiqi_project.assets;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
-public class ViewPagerImageUrl {
+public class ViewPagerImageUrl implements Parcelable{
 
     /**
      * error : 0
@@ -23,6 +26,24 @@ public class ViewPagerImageUrl {
      */
 
     private List<DataBean> data;
+
+    protected ViewPagerImageUrl(Parcel in) {
+        error = in.readInt();
+        message = in.readString();
+        data = in.createTypedArrayList(DataBean.CREATOR);
+    }
+
+    public static final Creator<ViewPagerImageUrl> CREATOR = new Creator<ViewPagerImageUrl>() {
+        @Override
+        public ViewPagerImageUrl createFromParcel(Parcel in) {
+            return new ViewPagerImageUrl(in);
+        }
+
+        @Override
+        public ViewPagerImageUrl[] newArray(int size) {
+            return new ViewPagerImageUrl[size];
+        }
+    };
 
     public int getError() {
         return error;
@@ -48,13 +69,46 @@ public class ViewPagerImageUrl {
         this.data = data;
     }
 
-    public static class DataBean {
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(error);
+        dest.writeString(message);
+        dest.writeTypedList(data);
+    }
+
+    public static class DataBean implements Parcelable{
         private String title;
         private String imagesrc;
         private String imagesrc2;
         private String tid;
         private int type;
         private String banner_url;
+
+        protected DataBean(Parcel in) {
+            title = in.readString();
+            imagesrc = in.readString();
+            imagesrc2 = in.readString();
+            tid = in.readString();
+            type = in.readInt();
+            banner_url = in.readString();
+        }
+
+        public static final Creator<DataBean> CREATOR = new Creator<DataBean>() {
+            @Override
+            public DataBean createFromParcel(Parcel in) {
+                return new DataBean(in);
+            }
+
+            @Override
+            public DataBean[] newArray(int size) {
+                return new DataBean[size];
+            }
+        };
 
         public String getTitle() {
             return title;
@@ -114,6 +168,21 @@ public class ViewPagerImageUrl {
                     ", type=" + type +
                     ", banner_url='" + banner_url + '\'' +
                     '}';
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(title);
+            dest.writeString(imagesrc);
+            dest.writeString(imagesrc2);
+            dest.writeString(tid);
+            dest.writeInt(type);
+            dest.writeString(banner_url);
         }
     }
 
