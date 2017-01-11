@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/zx_ll_xinfangzx_laofangzx"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/zx_ll_xinfangzx"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/zx_ll_xinfangzx_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/new_house_icon"/>
+
+            <TextView
+                android:id="@+id/zx_ll_xinfangzx_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/green0ead55"
+                android:text="667元/㎡"/>
+
+            <TextView
+                android:id="@+id/zx_ll_xinfangzx_tv2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:layout_marginTop="5dp"
+                android:text="新房整装"/>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view_v"
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/viewcolor"/>
+
+        <LinearLayout
+            android:id="@+id/zx_ll2_laofangzx"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/zx_ll2_laofangzx_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/old_house_icon"/>
+
+            <TextView
+                android:id="@+id/zx_ll2_laofangzx_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textSize="15dp"
+                android:textColor="@color/green0ead55"
+                android:text="667+117元/㎡"/>
+
+
+            <TextView
+                android:id="@+id/zx_ll2_xinfangzx_tv2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textSize="15dp"
+                android:text="老房整装"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_h"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#EEF2F3"/>
+
+    <LinearLayout
+        android:id="@+id/zx_ll3_"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/zx_rl2_kanxianchang"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/zx_tv_kanxianchang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@mipmap/look_site_playing_icon"
+                android:gravity="center"
+                android:drawablePadding="5dp"
+                android:textSize="15dp"
+                android:text="看现场"
+                />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view_v2"
+            android:layout_width="0.5dp"
+            android:layout_height="60dp"
+            android:background="@color/viewcolor"/>
+
+
+        <RelativeLayout
+            android:id="@+id/zx_rl2_gongdizhibo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/zx_tv_gongdizhibo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@mipmap/site_playing_icon"
+                android:gravity="center"
+                android:drawablePadding="5dp"
+                android:textSize="15dp"
+                android:text="工地直播" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view_v3"
+            android:layout_width="0.5dp"
+            android:layout_height="60dp"
+            android:background="@color/viewcolor"/>
+
+        <RelativeLayout
+            android:id="@+id/zx_rl2_yiqituandui"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/zx_tv_yiqituandui"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@mipmap/yiqi_group_icon"
+                android:gravity="center"
+                android:drawablePadding="5dp"
+                android:textSize="15dp"
+                android:text="一起团队" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_h2"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginTop="5dp"
+        android:background="#EEF2F3"/>
+
+    <TextView
+        android:id="@+id/zx_tv_zhuangxiuzhibo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:textSize="15dp"
+        android:textColor="@color/black"
+        android:text="装修直播"/>
+</LinearLayout>

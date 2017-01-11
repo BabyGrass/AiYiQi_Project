@@ -25,7 +25,7 @@ public class BaseApplication extends Application{
     public void onCreate() {
         super.onCreate();
         mContext = getApplicationContext();
-        Fresco.initialize(this);
         mBaseApp = this;
+        Fresco.initialize(mContext);
     }
 }
