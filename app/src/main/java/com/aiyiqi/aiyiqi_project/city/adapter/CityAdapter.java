@@ -9,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.aiyiqi.aiyiqi_project.entity.CityEntity;
 import com.aiyiqi.aiyiqi_project.R;
+import com.aiyiqi.aiyiqi_project.city.entity.CityEntity;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.finesdk.imageload.ImageLoader;
 

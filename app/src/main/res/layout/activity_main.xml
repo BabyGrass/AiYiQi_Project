@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.aiyiqi.aiyiqi_project.MainActivity"
-    android:orientation="vertical"
-    >
-        <RelativeLayout
-            android:id="@+id/rl"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/show_fragment"
-            >
+    android:gravity="center"
+    android:layout_height="match_parent">
 
-        </RelativeLayout>
-        <include layout="@layout/main_activity_bottom"
-                 android:layout_width="match_parent"
-                 android:layout_height="50dp"
-                 android:id="@+id/show_fragment"
-                 android:layout_alignParentBottom="true"
-                 />
+    <Button
+        android:id="@+id/btn_1"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="同城活动"/>
+    <Button
+        android:id="@+id/btn_2"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:text="效果图"/>
+    <Button
+        android:id="@+id/btn_3"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:text="装修学堂"/>
+</LinearLayout>
 
-</RelativeLayout>

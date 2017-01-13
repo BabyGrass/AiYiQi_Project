@@ -1,8 +1,8 @@
 package com.aiyiqi.aiyiqi_project.effectpicture.adapter;
 
-import android.support.v4.view.PagerAdapter;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.List;
 
@@ -10,32 +10,26 @@ import java.util.List;
  * Created by Administrator on 2017/1/6.
  */
 
-public class MyPagerAdapter extends PagerAdapter {
-    private List<View> mViewList;
+public class MyPagerAdapter extends FragmentPagerAdapter {
+    private List<Fragment> fragments;
+    private String titles[] = {"专题","美图"};
+    public MyPagerAdapter(FragmentManager fm,List<Fragment> fragments) {
+        super(fm);
+        this.fragments = fragments;
+    }
 
-    public MyPagerAdapter(List<View> views) {
-        this.mViewList = views;
+    @Override
+    public Fragment getItem(int position) {
+        return fragments == null ? null : fragments.get(position);
     }
 
     @Override
     public int getCount() {
-        return mViewList == null ? 0 :mViewList.size();
+        return fragments == null ? 0 : fragments.size();
     }
 
     @Override
-    public boolean isViewFromObject(View view, Object object) {
-        return view == object;
+    public CharSequence getPageTitle(int position) {
+        return titles[position];
     }
-
-    @Override
-    public Object instantiateItem(ViewGroup container, int position) {
-        container.addView(mViewList.get(position));
-        return mViewList.get(position);
-    }
-
-    @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-       container.removeView(mViewList.get(position));
-    }
-
 }
