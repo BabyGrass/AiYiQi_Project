@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
-
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
@@ -19,6 +18,11 @@
     <!-- 打电话 发短信 -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+
 
     <application
         android:name="com.finesdk.BaseApplication"
@@ -44,6 +48,69 @@
         <activity android:name=".view.detailactivity.ArticleDetailActivity"/>
         <activity android:name=".view.detailactivity.AuthodActivity"/>
         <activity android:name=".view.detailactivity.TieZiDetailActivity"/>
+        <activity android:name=".view.RepliceActivity"/>
+        <activity android:name=".city.activity.CityActivity"/>
+        <activity android:name=".decorate_budget.BudgetActivity"/>
+        <activity android:name=".design_amountofroom.DesignActivity"/>
+        <activity android:name=".zhuangxiugongsi.ZhuangXiuActivity"/>
+        <activity android:name=".effectpicture.activity.EffectPictureActivity"/>
+        <activity android:name=".city.activity.DetailActivity"/><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
+
+        <!--umeng   Share-->
+        <!--微博-->
+        <activity
+            android:name=".WBShareActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false" >
+        </activity>
+        <!--<service android:name="com.sina.weibo.sdk.net.DownloadService"-->
+                 <!--android:exported="false"></service>        -->
+        <!--微信-->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!--QQ-->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent100424468" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <!--umeng AppKey-->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="561cae6ae0f55abd990035bf" >
+        </meta-data>
+
     </application>
 
 </manifest>

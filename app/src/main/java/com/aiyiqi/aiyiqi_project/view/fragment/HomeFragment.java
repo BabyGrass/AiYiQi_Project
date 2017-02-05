@@ -25,11 +25,15 @@ import com.aiyiqi.aiyiqi_project.R;
 import com.aiyiqi.aiyiqi_project.adapter.HomeFragmentListViewAdapter;
 import com.aiyiqi.aiyiqi_project.assets.HomeFragmnetResultBean;
 import com.aiyiqi.aiyiqi_project.assets.ViewPagerImageUrl;
+import com.aiyiqi.aiyiqi_project.city.activity.CityActivity;
+import com.aiyiqi.aiyiqi_project.decorate_budget.BudgetActivity;
+import com.aiyiqi.aiyiqi_project.design_amountofroom.DesignActivity;
 import com.aiyiqi.aiyiqi_project.framework.utils.utils.MainUrlUtils;
 import com.aiyiqi.aiyiqi_project.view.SearchActivity;
 import com.aiyiqi.aiyiqi_project.view.detailactivity.ViewPagerDetailActivity;
 import com.aiyiqi.aiyiqi_project.view.mianpopupwindow.LocationPopupWindow;
 import com.aiyiqi.aiyiqi_project.view.zxing.activity.CaptureActivity;
+import com.aiyiqi.aiyiqi_project.zhuangxiugongsi.ZhuangXiuActivity;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.finesdk.fragment.BaseFragment;
@@ -46,6 +50,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.aiyiqi.aiyiqi_project.R.id.home_scrollview_footer_relativell;
+
 
 public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
     @Bind(R.id.home_scrollview_footer_peogressbar)
@@ -99,6 +104,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     private ListView listView;
     //ScrollView
     private ScrollView homefragment_scrollview;
+    private Handler handler = null;
     private final String TAG = "yiqi";
     //标记上次滑动的位置
     private int scrollY = 0;
@@ -110,6 +116,16 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     private boolean scrollFlag = false;// 标记是否滑动
     private int lastVisibleItemPosition = 0;// 标记上次滑动位置
 
+
+    /**
+     * ScrollView打开时没有在顶部的时候把它设置到顶部显示
+     */
+    public Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            homefragment_scrollview.smoothScrollTo(0,0);
+        }
+    };
 
     /**
      * 获取轮播图片地址的方法
@@ -179,6 +195,8 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @Override
     public void initData() {
         downloadImage();
+        handler = new Handler();
+        handler.postDelayed(runnable,300);
     }
 
 
@@ -328,12 +346,15 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                 locationPopupWindow.showAsDropDown(citySearchLl);
                 break;
             case R.id.decoration_company://装修公司
+                startActivity(new Intent(getActivity(), ZhuangXiuActivity.class));
                 break;
             case R.id.city_actiivty://同城活动
+                startActivity(new Intent(getActivity(), CityActivity.class));
                 break;
             case R.id.decoration_school://装修学堂
                 break;
             case R.id.decroation_budget://装修预算
+                startActivity(new Intent(getActivity(), BudgetActivity.class));
                 break;
             case R.id.catogray_feature://建材家具
                 break;
@@ -342,6 +363,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             case R.id.own_order://自助下单
                 break;
             case R.id.design_and_measure://设计/测量
+                startActivity(new Intent(getActivity(), DesignActivity.class));
                 break;
         }
     }

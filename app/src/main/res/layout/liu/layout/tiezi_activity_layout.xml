@@ -45,7 +45,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:name="com.aiyiqi.aiyiqi_project.view.fragment.tiezidetailfragment.TieZiDetailFragment"/>
-
+            <fragment
+                android:id="@+id/replice_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:name="com.aiyiqi.aiyiqi_project.view.fragment.tiezidetailfragment.TieZiRepliceFragment"/>
         </LinearLayout>
     </ScrollView>
     <LinearLayout
@@ -65,6 +69,7 @@
             android:layout_marginRight="5dp"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
+            android:focusable="false"
             android:padding="5dp"/>
         <ImageView
             android:id="@+id/tiezi_bottom_like"

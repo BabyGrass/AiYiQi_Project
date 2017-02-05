@@ -1,50 +1,62 @@
 package com.aiyiqi.aiyiqi_project.view.detailactivity;
 
 
+import android.app.Dialog;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aiyiqi.aiyiqi_project.LoginActivity;
 import com.aiyiqi.aiyiqi_project.R;
 import com.aiyiqi.aiyiqi_project.assets.Root;
-import com.aiyiqi.aiyiqi_project.assets.TieZiDetailResultBean;
 import com.aiyiqi.aiyiqi_project.framework.utils.utils.DetailUrl;
+import com.aiyiqi.aiyiqi_project.view.RepliceActivity;
 import com.aiyiqi.aiyiqi_project.view.fragment.tiezidetailfragment.TieZiDetailFragment;
+import com.aiyiqi.aiyiqi_project.view.fragment.tiezidetailfragment.TieZiRepliceFragment;
 import com.finesdk.activity.BaseActivity;
 import com.finesdk.http.OkHttpUtil;
 import com.google.gson.Gson;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-public class TieZiDetailActivity extends BaseActivity {
 
-    @Bind(R.id.tiezi_back_tv)
-    TextView tieziBackTv;
-    @Bind(R.id.tiezi_scrollview)
-    ScrollView tieziScrollview;
-    @Bind(R.id.tiezi_back_edittext)
-    EditText tieziBackEdittext;
-    @Bind(R.id.tiezi_bottom_like)
-    ImageView tieziBottomLike;
-    @Bind(R.id.tiezi_bottom_collect)
-    ImageView tieziBottomCollect;
-    @Bind(R.id.tiezi_bottom_share)
-    ImageView tieziBottomShare;
+public class TieZiDetailActivity extends BaseActivity implements View.OnClickListener{
+    private EditText tiezi_back_edittext;
+    private TextView tiezi_back_tv;
+    private ImageView tiezi_bottom_like,tiezi_bottom_collect,tiezi_bottom_share;
+
     private String id;
-    private TieZiDetailResultBean tieZiDetailResultBean;
+    private String replices;
     private TieZiDetailFragment tieZiDetailFragment;
+    private TieZiRepliceFragment tieZiRepliceFragment;
     private Root root;
+    /**
+     * 分享Dialog的
+     */
+    private TextView share_dialog_qq,share_dialog_wechat,share_dialog_wecharmoments,
+            share_dialog_qzone,share_dialog_weibo;
+    private Button share_button_cancle;
+
+    /**
+     * Dialog的显示
+     * @return
+     */
+    public Dialog dialog;
+    private View inflate;
 
     @Override
     public int getContentViewId() {
@@ -54,41 +66,28 @@ public class TieZiDetailActivity extends BaseActivity {
     @Override
     public void beforeInitView() {
         id = this.getIntent().getStringExtra("tiezi");
+        replices = this.getIntent().getStringExtra("replies");
     }
 
     @Override
     public void initView() {
+        tiezi_back_edittext = findViewByIdNoCast(R.id.tiezi_back_edittext);
+        tiezi_back_tv = findViewByIdNoCast(R.id.tiezi_back_tv);
+        tiezi_bottom_like = findViewByIdNoCast(R.id.tiezi_bottom_like);
+        tiezi_bottom_collect = findViewByIdNoCast(R.id.tiezi_bottom_collect);
+        tiezi_bottom_share = findViewByIdNoCast(R.id.tiezi_bottom_share);
+
         tieZiDetailFragment = (TieZiDetailFragment) getSupportFragmentManager().findFragmentById(R.id.tiezi_detail_fragment);
+        tieZiRepliceFragment = (TieZiRepliceFragment) getSupportFragmentManager().findFragmentById(R.id.replice_fragment);
     }
 
     @Override
     public void initData() {
+        setOnClick(tiezi_back_edittext,tiezi_back_tv,tiezi_bottom_like,tiezi_bottom_collect,tiezi_bottom_share);
         getDataFromNetwork();
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
-    @OnClick({R.id.tiezi_back_tv, R.id.tiezi_bottom_like, R.id.tiezi_bottom_collect, R.id.tiezi_bottom_share})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.tiezi_back_tv://返回
-                finish();
-                break;
-            case R.id.tiezi_bottom_like://喜欢点赞
-                startActivity(new Intent(this, LoginActivity.class));
-                break;
-            case R.id.tiezi_bottom_collect://收藏
-                startActivity(new Intent(this, LoginActivity.class));
-                break;
-            case R.id.tiezi_bottom_share://分享
-                break;
-        }
-    }
 
     /**
      * 网络请求
@@ -98,7 +97,7 @@ public class TieZiDetailActivity extends BaseActivity {
             @Override
             public void onSuccess(Object response) {
                 if(response != null){
-                    String s = null;
+                    String s ;
                     String str = OkHttpUtil.decodeUnicode(response.toString());
                     if(str.contains("\"houseInfo\":[]")){
                         s = str.replace("\"houseInfo\":[]","\"houseInfo\":{}");
@@ -108,7 +107,8 @@ public class TieZiDetailActivity extends BaseActivity {
                     }
                     root = new Gson().fromJson(s,Root.class);
                     Log.i("msg",root.toString());
-                    tieZiDetailFragment.setTieziFragment(TieZiDetailActivity.this,root);
+                    tieZiDetailFragment.setTieziFragment(TieZiDetailActivity.this,id,root);
+                    tieZiRepliceFragment.setTieziFragment(TieZiDetailActivity.this,root.getData().getTid(),replices);
                 }
             }
 
@@ -123,9 +123,6 @@ public class TieZiDetailActivity extends BaseActivity {
      * 参数
      */
     public List<OkHttpUtil.Param> getParam(){
-//        a=viewThread&c=forumThread&imgwidth=330&uuid=86305803367590&tid=1216903&
-//                m=forum&haspermission=yes&model=android&
-//                app_version=android_com.aiyiqi.galaxy_1.1"
         List<OkHttpUtil.Param> paramList = new ArrayList<>();
         String key1 = "tid";
         String vlaue1 = id;
@@ -146,6 +143,96 @@ public class TieZiDetailActivity extends BaseActivity {
         return paramList;
     }
 
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.tiezi_back_edittext://点击回复跳转到回复的Activity
+                startActivity(new Intent(this, RepliceActivity.class));
+                break;
+            case R.id.tiezi_back_tv:
+                TieZiDetailActivity.this.finish();
+                break;
+            case R.id.tiezi_bottom_like:
+                startActivity(new Intent(this, LoginActivity.class));
+                break;
+            case R.id.tiezi_bottom_collect:
+                startActivity(new Intent(this, LoginActivity.class));
+                break;
+            case R.id.tiezi_bottom_share://分享
+                showDialog();
+                break;
+            case R.id.share_dialog_qq:
+                break;
+            case R.id.share_dialog_wechat:
+                break;
+            case R.id.share_dialog_wecharmoments:
+                break;
+            case R.id.share_dialog_qzone:
+                break;
+            case R.id.share_dialog_weibo:
+//                new ShareAction(TieZiDetailActivity.this).setPlatform(SHARE_MEDIA.SINA)
+//                        .withText("你好").setCallback(umShareListener).share();
+                break;
+            case R.id.share_button_cancle:
+                dialog.dismiss();
+                break;
+        }
+    }
 
+    /**
+     * 显示分享的Dialog
+     */
+    public void showDialog(){
+        dialog = new Dialog(this,R.style.photoDialog);
+        inflate = LayoutInflater.from(this).inflate(R.layout.share_dialog_layout,null);
+        dialog.setContentView(inflate);
+        share_dialog_qq = (TextView) inflate.findViewById(R.id.share_dialog_qq);
+        share_dialog_wechat = (TextView) inflate.findViewById(R.id.share_dialog_wechat);
+        share_dialog_wecharmoments = (TextView) inflate.findViewById(R.id.share_dialog_wecharmoments);
+        share_dialog_qzone = (TextView) inflate.findViewById(R.id.share_dialog_qzone);
+        share_dialog_weibo = (TextView) inflate.findViewById(R.id.share_dialog_weibo);
+        share_button_cancle = (Button) inflate.findViewById(R.id.share_button_cancle);
+        share_dialog_qq.setOnClickListener(this);
+        share_dialog_wechat.setOnClickListener(this);
+        share_dialog_wecharmoments.setOnClickListener(this);
+        share_dialog_qzone.setOnClickListener(this);
+        share_dialog_weibo.setOnClickListener(this);
+        share_button_cancle.setOnClickListener(this);
+        Window window = dialog.getWindow();
+        window.setGravity(Gravity.BOTTOM);
+        WindowManager.LayoutParams lp = window.getAttributes();
+        Display d = window.getWindowManager().getDefaultDisplay();
+        //获取屏幕宽
+        lp.width = d.getWidth();
+        lp.y = 0;
+        window.setAttributes(lp);
+        dialog.show();
+    }
+
+    /**
+     * 友盟微博分享回调接口
+     */
+    private UMShareListener umShareListener = new UMShareListener() {
+        @Override
+        public void onResult(SHARE_MEDIA platform) {
+            //Log.d("plat","platform"+platform);
+
+            Toast.makeText(TieZiDetailActivity.this, platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
+
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA platform, Throwable t) {
+            Toast.makeText(TieZiDetailActivity.this,platform + " 分享失败啦", Toast.LENGTH_SHORT).show();
+            if(t!=null){
+                //Log.d("throw","throw:"+t.getMessage());
+            }
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA platform) {
+            Toast.makeText(TieZiDetailActivity.this,platform + " 分享取消了", Toast.LENGTH_SHORT).show();
+        }
+    };
 
 }

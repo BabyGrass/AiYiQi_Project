@@ -1,8 +1,7 @@
 package com.aiyiqi.aiyiqi_project.zhuangxiugongsi;
 
-import android.util.Log;
+
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -11,12 +10,9 @@ import com.aiyiqi.aiyiqi_project.R;
 import com.aiyiqi.aiyiqi_project.zhuangxiugongsi.adapter.ReLvAdapter;
 import com.aiyiqi.aiyiqi_project.zhuangxiugongsi.zhuangxiu_json_data.viewpager_data.Data;
 import com.aiyiqi.aiyiqi_project.zhuangxiugongsi.zhuangxiu_json_data.viewpager_data.Root;
-import com.aiyiqi.aiyiqi_project.zhuangxiugongsi.zhuangxiu_json_data.viewpager_data.zhuangxiuzhibo_data.ZxZbData;
 import com.aiyiqi.aiyiqi_project.zhuangxiugongsi.zhuangxiu_json_data.viewpager_data.zhuangxiuzhibo_data.ZxZbRoot;
-import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.finesdk.activity.BaseActivity;
 import com.finesdk.http.OkHttpUtil;
-import com.finesdk.util.ConvenientBannerUtil;
 import com.finesdk.view.RefreshListView;
 import com.google.gson.Gson;
 
@@ -148,7 +144,7 @@ public class ZhuangXiuActivity extends BaseActivity{
 
             if(response != null){
                 zxZbRoot = new Gson().fromJson(response.toString(),ZxZbRoot.class);
-                reLvAdapter.settList(zxZbRoot.getData());
+               reLvAdapter.settList(zxZbRoot.getData());
                 reLvAdapter.notifyDataSetChanged();
             }
         }

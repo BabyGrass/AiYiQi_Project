@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        debug {
+            keyAlias 'key'
+            keyPassword 'android'
+            storeFile file('D:/debug.jks')
+            storePassword 'android'
+        }
+    }
     compileSdkVersion 24
     buildToolsVersion "24.0.3"
     defaultConfig {
@@ -16,8 +24,16 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-    }
+        signingConfigs {
+            debug {
+                keyAlias 'key'
+                keyPassword 'android'
+                storeFile file('D:/debug.jks')
+                storePassword 'android'
+            }
+        }
 
+    }
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
@@ -33,9 +49,6 @@ android {
                     ]
         }
     }
-
-
-
 }
 
 dependencies {
@@ -50,6 +63,5 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.android.support:design:24.2.1'
     compile 'com.android.support:recyclerview-v7:24.1.0'
-
-
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
 }

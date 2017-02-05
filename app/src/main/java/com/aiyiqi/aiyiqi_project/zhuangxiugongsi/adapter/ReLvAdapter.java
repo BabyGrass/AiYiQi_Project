@@ -8,10 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aiyiqi.aiyiqi_project.R;
-import com.aiyiqi.aiyiqi_project.zhuangxiugongsi.zhuangxiu_json_data.viewpager_data.Data;
 import com.aiyiqi.aiyiqi_project.zhuangxiugongsi.zhuangxiu_json_data.viewpager_data.zhuangxiuzhibo_data.ZxZbData;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -20,8 +18,7 @@ import com.finesdk.util.ConvenientBannerUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+
 
 /**
  * Created by Administrator on 2017/1/4.
@@ -52,7 +49,7 @@ public class ReLvAdapter extends BaseAdapter implements View.OnClickListener{
 
     /**
      * 刷新一次数据
-     * @param list
+     * @param
      */
     public void settList(List<ZxZbData> list) {
         this.list = list;

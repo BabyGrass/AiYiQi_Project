@@ -91,9 +91,7 @@ public class DisplayUtil {
         if (id > 0) {
             hasNavigationBar = rs.getBoolean(id);
         }
-
         return hasNavigationBar;
-
     }
 
     /**

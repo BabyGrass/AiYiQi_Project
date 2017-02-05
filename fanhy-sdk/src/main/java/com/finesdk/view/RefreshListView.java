@@ -186,7 +186,7 @@ public class RefreshListView extends ListView implements OnScrollListener{
 						refreshHeaderView();
 					}
 
-
+					super.onTouchEvent(ev);
 					return true;//拦截TouchMove，不让listview处理该次move事件,会造成listview无法滑动
 				}
 

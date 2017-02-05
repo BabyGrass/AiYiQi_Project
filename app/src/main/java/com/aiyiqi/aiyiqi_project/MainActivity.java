@@ -152,12 +152,12 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_BACK){
-            if(isBack){//绗竴娆¤繘鏉?
-               ToastUtil.showToast("确认再次点击退出！");
-                        isBack = false;
-                mHandler.sendEmptyMessageDelayed(10001,TIEMS);
+            if(isBack){//判断是否点击返回键
+               ToastUtil.showToast("再按一下 返回键 退出应用");
+               isBack = false;
+               mHandler.sendEmptyMessageDelayed(10001,TIEMS);//2秒钟之后发送消息
             }else{
-                finish();
+               finish();//否者取消
             }
             return false;
         }

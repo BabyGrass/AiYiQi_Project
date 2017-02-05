@@ -1,15 +1,19 @@
 package com.aiyiqi.aiyiqi_project.view.fragment;
 
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.aiyiqi.aiyiqi_project.R;
 import com.aiyiqi.aiyiqi_project.adapter.Yezhu_ViewPager_Adapter;
@@ -17,7 +21,6 @@ import com.aiyiqi.aiyiqi_project.view.SearchActivity;
 import com.aiyiqi.aiyiqi_project.view.fragment.yezhutalkfragment.BanKuaiFragment;
 import com.aiyiqi.aiyiqi_project.view.fragment.yezhutalkfragment.JinhuaFragment;
 import com.aiyiqi.aiyiqi_project.view.fragment.yezhutalkfragment.NewFragment;
-import com.aiyiqi.aiyiqi_project.view.mianpopupwindow.YeZhuPopupWindow;
 import com.finesdk.fragment.BaseFragment;
 
 import java.util.ArrayList;
@@ -31,7 +34,7 @@ import butterknife.OnClick;
  * 业主说
  */
 
-public class YeZhuTalkFragment extends BaseFragment {
+public class YeZhuTalkFragment extends BaseFragment implements View.OnClickListener{
     @Bind(R.id.yezhu_fragment_popiv)
     ImageView yezhuFragmentPopiv;
     private ImageView yezhu_fragment_search_iv;
@@ -45,7 +48,10 @@ public class YeZhuTalkFragment extends BaseFragment {
     private JinhuaFragment jinhuaFragment;
     private NewFragment newFragment;
     private BanKuaiFragment banKuaiFragment;
-
+    //显示Dialog
+    private Dialog dialog;
+    private View inflater;
+    private TextView yezhu_fatie_tv,yezhu_shaidan_tv,yezhu_riji_tv,yezhu_toushubiaoyan_tv;
     @Override
     protected int getResource() {
         return R.layout.yezhu_fragment_layout;
@@ -110,6 +116,14 @@ public class YeZhuTalkFragment extends BaseFragment {
             case R.id.yezhu_fragment_search_iv:
                 startActivity(new Intent(getActivity(), SearchActivity.class));
                 break;
+            case R.id.yezhu_fatie_tv://发帖
+                break;
+            case R.id.yezhu_shaidan_tv://晒单
+                break;
+            case R.id.yezhu_riji_tv://日记
+                break;
+            case R.id.yezhu_toushubiaoyan_tv://投诉表扬
+                break;
         }
     }
 
@@ -129,17 +143,41 @@ public class YeZhuTalkFragment extends BaseFragment {
 private boolean isClick = true;//默认没有点击
     @OnClick(R.id.yezhu_fragment_popiv)//点击弹出popWindow
     public void onClick() {
-        YeZhuPopupWindow yeZhuPopupWindow = new YeZhuPopupWindow(getActivity());
+
         if(isClick){//点击
-            yeZhuPopupWindow.isShowing();
+            showDialog();
             yezhuFragmentPopiv.setImageResource(R.drawable.float_layer_menu_close);
             isClick = false;
         }
         else{
+            dialog.dismiss();
             yezhuFragmentPopiv.setImageResource(R.drawable.float_layer_menu_normal);
-            yeZhuPopupWindow.dismiss();
             isClick = true;
         }
 
     }
+
+    /**
+     * 显示Dialog的方法
+     */
+    public void showDialog(){
+        dialog = new Dialog(getActivity(),R.style.FullScreenDialog);
+        inflater = LayoutInflater.from(getActivity()).inflate(R.layout.yezhu_popupwindow_layout,null);
+        dialog.setContentView(inflater);
+        yezhu_fatie_tv = (TextView) inflater.findViewById(R.id.yezhu_fatie_tv);
+        yezhu_shaidan_tv = (TextView) inflater.findViewById(R.id.yezhu_shaidan_tv);
+        yezhu_riji_tv = (TextView) inflater.findViewById(R.id.yezhu_riji_tv);
+        yezhu_toushubiaoyan_tv = (TextView) inflater.findViewById(R.id.yezhu_toushubiaoyan_tv);
+        yezhu_fatie_tv.setOnClickListener(this);
+        yezhu_shaidan_tv.setOnClickListener(this);
+        yezhu_riji_tv.setOnClickListener(this);
+        yezhu_toushubiaoyan_tv.setOnClickListener(this);
+        Window window = dialog.getWindow();
+        window.setGravity(Gravity.BOTTOM);
+        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        dialog.show();
+
+    }
+
+
 }

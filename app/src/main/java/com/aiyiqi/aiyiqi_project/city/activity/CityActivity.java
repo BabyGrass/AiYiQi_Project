@@ -6,9 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.aiyiqi.aiyiqi_project.city.adapter.CityAdapter;
-import com.aiyiqi.aiyiqi_project.entity.CityEntity;
 import com.aiyiqi.aiyiqi_project.R;
+import com.aiyiqi.aiyiqi_project.city.adapter.CityAdapter;
+import com.aiyiqi.aiyiqi_project.city.entity.CityEntity;
 import com.finesdk.activity.BaseActivity;
 import com.finesdk.http.OkHttpUtil;
 import com.finesdk.util.common.ToastUtil;

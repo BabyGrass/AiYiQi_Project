@@ -1,15 +1,22 @@
 package com.aiyiqi.aiyiqi_project.view.zxing.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.os.Vibrator;
+import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
@@ -22,10 +29,20 @@ import com.aiyiqi.aiyiqi_project.view.zxing.camera.CameraManager;
 import com.aiyiqi.aiyiqi_project.view.zxing.decoding.CaptureActivityHandler;
 import com.aiyiqi.aiyiqi_project.view.zxing.decoding.InactivityTimer;
 import com.aiyiqi.aiyiqi_project.view.zxing.view.ViewfinderView;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.zxing.BarcodeFormat;
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.DecodeHintType;
+import com.google.zxing.RGBLuminanceSource;
 import com.google.zxing.Result;
+import com.google.zxing.common.HybridBinarizer;
+import com.google.zxing.qrcode.QRCodeReader;
 
 import java.io.IOException;
+import java.util.Hashtable;
 import java.util.Vector;
 
 import butterknife.Bind;
@@ -53,6 +70,19 @@ public class CaptureActivity extends Activity implements Callback {
     private boolean playBeep;
     private static final float BEEP_VOLUME = 0.10f;
     private boolean vibrate;
+    private Bitmap scanBitmap;
+    private static final int REQUEST_CODE = 100;//返回码
+    private static final int PARSE_BARCODE_SUC = 300;
+    private static final int PARSE_BARCODE_FAIL = 303;
+    private ProgressDialog mProgress;
+    private String photo_path;
+
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     /**
      * Called when the activity is first created.
@@ -67,6 +97,9 @@ public class CaptureActivity extends Activity implements Callback {
         viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
         hasSurface = false;
         inactivityTimer = new InactivityTimer(this);
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @SuppressWarnings("deprecation")
@@ -225,6 +258,8 @@ public class CaptureActivity extends Activity implements Callback {
         }
     };
 
+
+
     @OnClick({R.id.zxing_cancle, R.id.zxing_photo})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -232,7 +267,154 @@ public class CaptureActivity extends Activity implements Callback {
                 CaptureActivity.this.finish();
                 break;
             case R.id.zxing_photo:
+                Intent innerIntent = new Intent(Intent.ACTION_GET_CONTENT); //"android.intent.action.GET_CONTENT"
+                innerIntent.setType("image/*");
+                Intent wrapperIntent = Intent.createChooser(innerIntent, "选择二维码图片");
+                this.startActivityForResult(wrapperIntent, REQUEST_CODE);
                 break;
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == REQUEST_CODE) {
+            switch (requestCode) {
+                case REQUEST_CODE:
+                    Cursor cursor = getContentResolver().query(data.getData(), null, null, null, null);
+                    if (cursor.moveToFirst()) {
+                        //图片地址
+                        photo_path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+                    }
+                    cursor.close();
+                    mProgress = new ProgressDialog(CaptureActivity.this);
+                    mProgress.setMessage("正在扫描...");
+                    mProgress.setCancelable(false);
+                    mProgress.show();
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Result result = scanningImage(photo_path);
+                            if (result != null) {
+                                Message m = mHandler.obtainMessage();
+                                m.what = PARSE_BARCODE_SUC;//300
+                                m.obj = result.getText();//成功发送扫描的结果
+                                mHandler.sendMessage(m);
+                            } else {
+                                Message m = mHandler.obtainMessage();
+                                m.what = PARSE_BARCODE_FAIL;//303
+                                m.obj = "Scan failed!";//如果结果为空发送扫描失败
+                                mHandler.sendMessage(m);
+                            }
+                        }
+                    }).start();
+                    break;
+            }
+        }
+    }
+    private Handler mHandler = new Handler(){//Handler接收消息
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            mProgress.dismiss();
+            switch (msg.what) {
+                case PARSE_BARCODE_SUC://成功
+                    onResultHandler((String)msg.obj, scanBitmap);
+                    break;
+                case PARSE_BARCODE_FAIL://失败
+                    Toast.makeText(CaptureActivity.this, (String)msg.obj, Toast.LENGTH_LONG).show();
+                    break;
+
+            }
+        }
+    };
+
+
+    /**
+     * 扫描二维码图片的方法
+     *
+     * @param path
+     * @return
+     */
+    public Result scanningImage(String path) {
+        if (TextUtils.isEmpty(path)) {
+            return null;
+        }
+        Hashtable<DecodeHintType, String> hints = new Hashtable<DecodeHintType, String>();
+        hints.put(DecodeHintType.CHARACTER_SET, "UTF8"); //设置二维码内容的编码
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true; // 先获取原大小
+        scanBitmap = BitmapFactory.decodeFile(path, options);
+        options.inJustDecodeBounds = false; // 获取新的大小
+        int sampleSize = (int) (options.outHeight / (float) 200);
+        if (sampleSize <= 0)
+            sampleSize = 1;
+        options.inSampleSize = sampleSize;
+        scanBitmap = BitmapFactory.decodeFile(path, options);
+        RGBLuminanceSource source = new RGBLuminanceSource(scanBitmap.getWidth(),scanBitmap.getHeight(),new int[scanBitmap.getWidth()*scanBitmap.getHeight()]);
+        BinaryBitmap bitmap1 = new BinaryBitmap(new HybridBinarizer(source));
+        QRCodeReader reader = new QRCodeReader();
+        try {
+              return reader.decode(bitmap1, hints);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName("Capture Page") // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .build();
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        AppIndex.AppIndexApi.start(client, getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end(client, getIndexApiAction());
+        client.disconnect();
+    }
+
+    private void onResultHandler(String resultString, Bitmap bitmap){
+        if(TextUtils.isEmpty(resultString)){
+            Toast.makeText(CaptureActivity.this, "Scan failed!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Intent resultIntent = new Intent();
+        Bundle bundle = new Bundle();
+        bundle.putString("result", resultString);
+        bundle.putParcelable("bitmap", bitmap);
+        resultIntent.putExtras(bundle);
+        this.setResult(RESULT_OK, resultIntent);
+        CaptureActivity.this.finish();
+    }
+
 }

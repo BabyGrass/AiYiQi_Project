@@ -17,6 +17,7 @@ import com.aiyiqi.aiyiqi_project.assets.HomeFragmnetResultBean;
 import com.aiyiqi.aiyiqi_project.view.detailactivity.ArticleDetailActivity;
 import com.aiyiqi.aiyiqi_project.view.detailactivity.AuthodActivity;
 import com.aiyiqi.aiyiqi_project.view.detailactivity.TieZiDetailActivity;
+import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.finesdk.imageload.ImageLoader;
 
@@ -146,6 +147,9 @@ public class HomeFragmentListViewAdapter extends BaseAdapter implements View.OnC
         if (dataBeen.get(position).getType().equals("3")){
             //图片
             ImageLoader.getInstance().disPlayImage(viewHolderTwo.yezhuIamgeHead,data.getAvtUrl());
+            RoundingParams roundingParams = RoundingParams.fromCornersRadius(50)
+                    .setRoundingMethod(RoundingParams.RoundingMethod.BITMAP_ONLY);
+            viewHolderTwo.yezhuIamgeHead.getHierarchy().setRoundingParams(roundingParams);
             viewHolderTwo.yezhuName.setText(data.getAuthor());
             viewHolderTwo.yezhuTime.setText(data.getDateline());
             viewHolderTwo.yezhuMediumTextview.setText(data.getTitle());
