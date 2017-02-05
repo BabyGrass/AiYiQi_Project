@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aiyiqi.aiyiqi_project.R;
@@ -24,14 +25,19 @@ public class MeituAdapter extends RecyclerView.Adapter<MeituAdapter.ViewHolder> 
         this.listBeen = listBeen;
     }
 
-    public void addDatas(List<Meitu.DataBean.ListBean> beanList){
+    public void addDatas(List<Meitu.DataBean.ListBean> beanList, boolean isLoadMore) {
+        if (isLoadMore == false) {
+            if (beanList != null) {
+                listBeen.clear();
+            }
+        }
         listBeen.addAll(beanList);
         notifyDataSetChanged();
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.meitu_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.meitu_item, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -40,25 +46,47 @@ public class MeituAdapter extends RecyclerView.Adapter<MeituAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         Meitu.DataBean.ListBean listBean = listBeen.get(position);
         ImageLoader loader = ImageLoader.getInstance();
-        loader.disPlayImage(holder.meitu_item_img,listBean.getUrl());
-        holder.mei_item_look.setText("  "+listBean.getCollected()+"   ");
-        holder.mei_item_like.setText("  "+listBean.getLike_num());
+        loader.disPlayImage(holder.meitu_item_img, listBean.getUrl());
+        holder.mei_item_look.setText("  " + listBean.getCollected() + "   ");
+        holder.mei_item_like.setText("  " + listBean.getLike_num());
+
+        holder.meitu_item.setTag(position);
     }
 
     @Override
     public int getItemCount() {
-        return listBeen == null ? 0 :listBeen.size();
+        return listBeen == null ? 0 : listBeen.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
-       private SimpleDraweeView meitu_item_img;
-       private TextView mei_item_look;
-       private TextView mei_item_like;
-       public ViewHolder(View itemView) {
-           super(itemView);
-           this.meitu_item_img = (SimpleDraweeView) itemView.findViewById(R.id.meitu_item_img);
-           this.mei_item_look = (TextView) itemView.findViewById(R.id.meitu_item_look);
-           this.mei_item_like = (TextView) itemView.findViewById(R.id.meitu_item_like);
-       }
-   }
+    class ViewHolder extends RecyclerView.ViewHolder {
+        private SimpleDraweeView meitu_item_img;
+        private TextView mei_item_look;
+        private TextView mei_item_like;
+        private LinearLayout meitu_item;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            this.meitu_item_img = (SimpleDraweeView) itemView.findViewById(R.id.meitu_item_img);
+            this.mei_item_look = (TextView) itemView.findViewById(R.id.meitu_item_look);
+            this.mei_item_like = (TextView) itemView.findViewById(R.id.meitu_item_like);
+            meitu_item = (LinearLayout) itemView.findViewById(R.id.meitu_item);
+            meitu_item.setOnClickListener(onClick);
+        }
+    }
+
+    public View.OnClickListener onClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            int position = (int) v.getTag();
+            onClickItem.OnClickItem(position,v);
+        }
+    };
+
+    public OnClickItemListener onClickItem;
+    public void setOnClickItem(OnClickItemListener onClickItem) {
+        this.onClickItem = onClickItem;
+    }
+    public interface OnClickItemListener{
+        void OnClickItem(int position, View view);
+    }
 }

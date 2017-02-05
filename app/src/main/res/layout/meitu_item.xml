@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_margin="1dp"
+              android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/meitu_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="1dp">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/meitu_item_img"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="5dp"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/meitu_item_look"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:drawableLeft="@mipmap/looked_num_icon"
+                android:text="959"/>
+            <TextView
+                android:id="@+id/meitu_item_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:drawableLeft="@mipmap/zan_hui"
+                android:text="21"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:background="@color/white"/>
+</LinearLayout>

@@ -26,8 +26,10 @@ import com.aiyiqi.aiyiqi_project.adapter.HomeFragmentListViewAdapter;
 import com.aiyiqi.aiyiqi_project.assets.HomeFragmnetResultBean;
 import com.aiyiqi.aiyiqi_project.assets.ViewPagerImageUrl;
 import com.aiyiqi.aiyiqi_project.city.activity.CityActivity;
+import com.aiyiqi.aiyiqi_project.decorateSchool.activity.DecorateSchoolActivity;
 import com.aiyiqi.aiyiqi_project.decorate_budget.BudgetActivity;
 import com.aiyiqi.aiyiqi_project.design_amountofroom.DesignActivity;
+import com.aiyiqi.aiyiqi_project.effectpicture.activity.EffectPictureActivity;
 import com.aiyiqi.aiyiqi_project.framework.utils.utils.MainUrlUtils;
 import com.aiyiqi.aiyiqi_project.view.SearchActivity;
 import com.aiyiqi.aiyiqi_project.view.detailactivity.ViewPagerDetailActivity;
@@ -352,6 +354,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                 startActivity(new Intent(getActivity(), CityActivity.class));
                 break;
             case R.id.decoration_school://装修学堂
+                startActivity(new Intent(getActivity(),DecorateSchoolActivity.class));
                 break;
             case R.id.decroation_budget://装修预算
                 startActivity(new Intent(getActivity(), BudgetActivity.class));
@@ -359,6 +362,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             case R.id.catogray_feature://建材家具
                 break;
             case R.id.xiaguo_iamge://效果图
+                startActivity(new Intent(getActivity(), EffectPictureActivity.class));
                 break;
             case R.id.own_order://自助下单
                 break;

@@ -25,6 +25,7 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ViewHolder> {
         notifyDataSetChanged();
     }
 
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = View.inflate(parent.getContext(),R.layout.decorate_school_item,null);
@@ -36,6 +37,9 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         String tag = tags.get(position);
         holder.decorate_school_tv.setText(tag.toString());
+        //设置监听标签
+        holder.decorate_school_tv.setTag(position);
+
     }
 
     @Override
@@ -45,11 +49,33 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ViewHolder> {
 
 
 
+
     class ViewHolder extends RecyclerView.ViewHolder{
         TextView decorate_school_tv;
         public ViewHolder(View itemView) {
             super(itemView);
             this.decorate_school_tv = (TextView) itemView.findViewById(R.id.decorate_tag_item);
+            decorate_school_tv.setOnClickListener(onClick);
         }
+    }
+
+    //监听
+    private View.OnClickListener onClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            int position = (int) v.getTag();
+            if (onItemClickListener != null){
+                onItemClickListener.OnItemClick(position,v);
+            }
+        }
+    };
+
+    //回调监听
+    private OnItemClickListener onItemClickListener;
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+    public interface OnItemClickListener{
+        void OnItemClick(int position, View view);
     }
 }

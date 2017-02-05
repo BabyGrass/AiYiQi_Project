@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/effect_zhuanti_refresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/effect_meitu_recycler"
+    <com.cjj.MaterialRefreshLayout
+        android:id="@+id/refresh_decorate_features"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-</LinearLayout>
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/effect_zhuanti_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.cjj.MaterialRefreshLayout>
+
+
+</RelativeLayout>

@@ -33,7 +33,11 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
     //添加数据到集合中
     public void addDatas(List<CityEntity.DataBean.ForumlistBean> datas){
-        forumlistBeanList.addAll(datas);
+        if (forumlistBeanList != null){
+            if (datas != null){
+                forumlistBeanList.addAll(datas);
+            }
+        }
         notifyDataSetChanged();
     }
 
@@ -70,6 +74,8 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
     public int getItemCount() {
         return forumlistBeanList == null ? 0 : forumlistBeanList.size();
     }
+
+
 
     class ViewHolder extends RecyclerView.ViewHolder{
         SimpleDraweeView city_item_BImg;

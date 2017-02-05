@@ -6,9 +6,16 @@
 
     <include layout="@layout/city_title"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/city_content"
+
+    <com.cjj.MaterialRefreshLayout
+        android:id="@+id/refresh_city"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/rl_city_tilte"/>
+        android:layout_below="@+id/rl_city_tilte"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/city_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.cjj.MaterialRefreshLayout>
+
 </RelativeLayout>

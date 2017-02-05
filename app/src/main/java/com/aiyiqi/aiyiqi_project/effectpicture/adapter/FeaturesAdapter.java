@@ -25,7 +25,12 @@ public class FeaturesAdapter extends RecyclerView.Adapter<FeaturesAdapter.ViewHo
         this.mlistBeen = mlistBeen;
     }
     //添加数据刷新适配器
-    public void addDatas(List<XiaoGuotu.DataBean.ListBean> datas){
+    public void addDatas(List<XiaoGuotu.DataBean.ListBean> datas,boolean isLoadMore){
+        if (isLoadMore == false){
+            if (mlistBeen != null){
+                mlistBeen.clear();
+            }
+        }
         mlistBeen.addAll(datas);
         notifyDataSetChanged();
     }

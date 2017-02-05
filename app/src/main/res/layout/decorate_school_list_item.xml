@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="100dp"
+              android:padding="10dp"
+              android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="2">
+
+            <TextView
+                android:id="@+id/content_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="奥士达大厦2阿萨斯大声道"
+                android:textSize="18dip"
+                android:textStyle="bold"
+                android:maxLines="2"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/content_tv_look"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100"
+                android:drawableLeft="@mipmap/course_flag_browse"/>
+            <TextView
+                android:id="@+id/content_tv_shoucang"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_height="wrap_content"
+                android:text="50"
+                android:drawableLeft="@mipmap/course_flag_collect"/>
+            <TextView
+                android:id="@+id/content_tv_pinglun"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="2"
+                android:drawableLeft="@mipmap/course_flag_comment"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_height="wrap_content">
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/content_img"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/ic_launcher"/>
+
+    </LinearLayout>
+</LinearLayout>

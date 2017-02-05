@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_marginTop="30dp"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/decorate_school_back"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:padding="8dp"
+            android:src="@drawable/city_back_selector"/>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/decorate_school_title"
+            android:layout_width="0dp"
+            android:layout_weight="8"
+            android:layout_gravity="center"
+            app:tabTextColor="@color/black"
+            app:tabSelectedTextColor="@color/green"
+            app:tabIndicatorHeight="0dp"
+            app:tabMode="scrollable"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/decorate_school_more"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+           android:src="@drawable/decorate_school_more" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@android:color/darker_gray"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/decorate_school_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

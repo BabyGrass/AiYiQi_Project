@@ -48,7 +48,7 @@ public class Meitu implements Serializable{
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable {
         public String totalCount;
         /**
          * id : 3717117
@@ -78,7 +78,7 @@ public class Meitu implements Serializable{
             this.list = list;
         }
 
-        public static class ListBean {
+        public static class ListBean implements Serializable{
             public String id;
             public String title;
             public String url;
@@ -148,7 +148,7 @@ public class Meitu implements Serializable{
                 this.tag = tag;
             }
 
-            public static class TagBean {
+            public static class TagBean implements Serializable{
                 public String id;
                 public String name;
 
@@ -175,6 +175,8 @@ public class Meitu implements Serializable{
                             ", name='" + name + '\'' +
                             '}';
                 }
+
+
             }
 
             @Override
