@@ -7,8 +7,9 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+
+import com.aiyiqi.aiyiqi_project.entity.CityEntity;
 import com.aiyiqi.aiyiqi_project.R;
-import com.aiyiqi.aiyiqi_project.city.entity.CityEntity;
 import com.finesdk.activity.BaseActivity;
 
 import java.util.List;
