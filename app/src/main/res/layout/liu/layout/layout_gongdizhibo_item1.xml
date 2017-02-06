@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/item1_sdv"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/default_avatar"/>
+
+    <TextView
+        android:id="@+id/item1_tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/item1_sdv"
+        android:layout_marginLeft="15dp"
+        android:text="钟志友(工长)" />
+
+    <TextView
+        android:id="@+id/item1_gongzuojindu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item1_tv_name"
+        android:layout_alignLeft="@id/item1_tv_name"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/black"
+        android:text="竣工"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/item1_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item1_gongzuojindu"
+        android:layout_alignLeft="@id/item1_gongzuojindu"
+        android:layout_marginTop="5dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/item1_tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/item1_recyclerview"
+        android:layout_below="@+id/item1_recyclerview"
+        android:layout_marginTop="5dp"
+        android:text="2017-01-09 17:00"/>
+
+    <TextView
+        android:id="@+id/item1_tv_zhuanfa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@mipmap/umeng_share_normal"
+        android:layout_alignParentRight="true"
+        android:layout_alignBaseline="@+id/item1_tv_time"
+        android:layout_marginRight="15dp"/>
+
+</RelativeLayout>

@@ -1,6 +1,8 @@
 package com.aiyiqi.aiyiqi_project.zhuangxiugongsi.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,17 +12,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.aiyiqi.aiyiqi_project.R;
+import com.aiyiqi.aiyiqi_project.zhuangxiugongsi.GongDiZhiBo;
+import com.aiyiqi.aiyiqi_project.zhuangxiugongsi.ZhuangXiuLfZz;
+import com.aiyiqi.aiyiqi_project.zhuangxiugongsi.ZhuangXiuXfZz;
 import com.aiyiqi.aiyiqi_project.zhuangxiugongsi.zhuangxiu_json_data.viewpager_data.zhuangxiuzhibo_data.ZxZbData;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.finesdk.imageload.ImageLoader;
 import com.finesdk.util.ConvenientBannerUtil;
+import com.finesdk.util.common.IntentUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
+ * 装修直播  Adapter
  * Created by Administrator on 2017/1/4.
  */
 
@@ -30,10 +36,12 @@ public class ReLvAdapter extends BaseAdapter implements View.OnClickListener{
     private List<String> list1;//convenientBanner的Url数据集合
     private ConvenientBannerUtil convenientBannerUtil;
     private int[] selects;//接收Acivity传过来显示在convenientBanner上的数据点数组
+    private Activity activity;
 
 //    private List<>
-    public ReLvAdapter(Context context) {
-        this.mcontext= context;
+    public ReLvAdapter(Activity activity) {
+        this.activity= activity;
+        this.mcontext = activity.getBaseContext();
         list = new ArrayList<>();
     }
 
@@ -49,7 +57,7 @@ public class ReLvAdapter extends BaseAdapter implements View.OnClickListener{
 
     /**
      * 刷新一次数据
-     * @param
+     * @param list
      */
     public void settList(List<ZxZbData> list) {
         this.list = list;
@@ -100,13 +108,13 @@ public class ReLvAdapter extends BaseAdapter implements View.OnClickListener{
         if(convertView == null){
             if(getItemViewType(position) == 0){//轮播广告
                 myViewHolder1 = new MyViewHolder1();
-                convertView = View.inflate(mcontext,R.layout.layout_zhuangxiugongsi_01item,null);
+                convertView = View.inflate(mcontext, R.layout.layout_zhuangxiugongsi_01item,null);
                 myViewHolder1.convenientBanner = (ConvenientBanner)convertView .findViewById(R.id.convenientBanner);
                 convenientBannerUtil  = new ConvenientBannerUtil(mcontext,myViewHolder1.convenientBanner,list1,selects);
                 convertView.setTag(myViewHolder1);
             }else if(getItemViewType(position) == 1){//新房，旧房
                 myViewHolder2 = new MyViewHolder2();
-                convertView = View.inflate(mcontext,R.layout.layout_zhuangxiugongsi_02item,null);
+                convertView = View.inflate(mcontext, R.layout.layout_zhuangxiugongsi_02item,null);
                 myViewHolder2.zx_ll_xinfangzx = (LinearLayout) convertView.findViewById(R.id.zx_ll_xinfangzx);
                 myViewHolder2.zx_ll2_laofangzx = (LinearLayout) convertView.findViewById(R.id.zx_ll2_laofangzx);
                 myViewHolder2.zx_rl2_kanxianchang = (RelativeLayout) convertView.findViewById(R.id.zx_rl2_kanxianchang);
@@ -122,7 +130,8 @@ public class ReLvAdapter extends BaseAdapter implements View.OnClickListener{
             }
         else if(getItemViewType(position) == 2){//装修直播
             myViewHolder = new MyViewHolder();
-            convertView = View.inflate(mcontext,R.layout.layout_zhuangxiugongsi_item,null);
+            convertView = View.inflate(mcontext, R.layout.layout_zhuangxiugongsi_item,null);
+            myViewHolder.item_relativelaout = (RelativeLayout) convertView.findViewById(R.id.item_relativelaout);
             myViewHolder.zx_listview_sdv = (SimpleDraweeView) convertView.findViewById(R.id.zx_listview_sdv);
             myViewHolder.zx_listview_tv1 = (TextView) convertView.findViewById(R.id.zx_listview_tv1);
             myViewHolder.zx_listview_tv2 = (TextView) convertView.findViewById(R.id.zx_listview_tv2);
@@ -154,21 +163,30 @@ public class ReLvAdapter extends BaseAdapter implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.zx_ll_xinfangzx://新房整装
-
+                IntentUtil.openActivity(activity,ZhuangXiuXfZz.class);
                 break;
             case R.id.zx_ll2_laofangzx://老房整修
+                Bundle bundle1 = new Bundle();
+                bundle1.putInt("int",1);
+                IntentUtil.openActivity(activity,ZhuangXiuLfZz.class,bundle1);
                 break;
             case R.id.zx_rl2_kanxianchang://看现场
                 break;
             case R.id.zx_rl2_gongdizhibo://工地直播
+                Bundle bundle2 = new Bundle();
+                bundle2.putInt("int",2);
+                bundle2.putString("BuildingId","0");
+                IntentUtil.openActivity(activity, GongDiZhiBo.class,bundle2);
                 break;
             case R.id.zx_rl2_yiqituandui://一起团队
                 break;
+
         }
     }
 
 
     class MyViewHolder {//装修直播
+        public RelativeLayout item_relativelaout;
         public SimpleDraweeView zx_listview_sdv;
         public TextView zx_listview_tv1;
         public TextView zx_listview_tv2;

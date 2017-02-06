@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/xfzz_titile"
+        layout="@layout/public_zhuangxiugongsi_title"/>
+
+    <WebView
+        android:id="@+id/xfzx_vebview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/xfzz_titile"
+        android:layout_above="@+id/bottm_rl">
+
+    </WebView>
+
+    <include layout="@layout/budget_bottm"
+        android:id="@+id/bottm_rl"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>

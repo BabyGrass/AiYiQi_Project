@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/gongdizhibo_title"
+        layout="@layout/public_zhuangxiugongsi_title"/>
+
+    <com.finesdk.view.RefreshListView
+        android:id="@+id/gongdizhibo_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/gongdizhibo_title">
+    </com.finesdk.view.RefreshListView>
+
+    <include
+        android:id="@+id/gongdizhibo_bottom"
+        layout="@layout/budget_bottm"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+</RelativeLayout>

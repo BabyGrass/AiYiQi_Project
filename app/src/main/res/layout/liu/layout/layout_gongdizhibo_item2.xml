@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:orientation="vertical"
+android:gravity="center"
+android:padding="10dp"
+>
+
+<com.facebook.drawee.view.SimpleDraweeView
+    android:id="@+id/sd_renyuantupian"
+    android:layout_width="45dp"
+    android:layout_height="45dp"
+    android:background="@drawable/default_avatar"/>
+<TextView
+
+    android:id="@+id/tv_renyuanxingming"
+    android:layout_marginTop="5dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="人员姓名"
+    android:textColor="@color/black"/>
+
+<TextView
+    android:id="@+id/tv_renyuanxinxi"
+    android:layout_marginTop="5dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="设计师"/>
+</LinearLayout>
